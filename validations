@@ -1,0 +1,163 @@
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname= "orderly";
+$conn = mysqli_connect($servername,$username,$password,$dbname);
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Team</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+   <link href="css/style.css" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+</head>
+<body>
+       <div class="login-page">
+         <div class="container">
+	       <div class="row">
+	         <div class="col-md-12">
+		        <div class="inner-part">
+		            <div class="logo-part">
+			          <img src="images/logo.png">
+			         </div>
+			           <h6>Creating a seamless & satisfying group food ordering experience</h6>
+					 <div class="tab-section">
+					    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Log-In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Register</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active  form-new" id="home" role="tabpanel" aria-labelledby="home-tab">
+						  <form action="" method="post" name="login" >
+						  <div class="form-hr">
+						    <div class="form-group">
+							<div class="col-md-3">
+							  <label>E-Mail Address:</label></div>
+							  <div class="col-md-9">
+							    <input type="email" name="email2" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+							   <div class="form-group">
+							   <div class="col-md-3">
+							  <label>Password:</label></div>
+							  <div class="col-md-9">
+							    <input type="password" name="password" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+							<div class="btn-acc">
+								<input type="submit" class="btn btn-account" name="login" value="Login">
+							  
+							</div>
+						  </div>
+                    </form>
+                        </div>
+                        <div class="tab-pane fade show text-align form-new" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        	<form action="get-stared.html" method="post"  id="registration" onsubmit="return validateform()"> 
+						  <div class="form-hr">
+						    <div class="form-group">
+							  <label class="col-md-3">First Name:</label>
+							  <div class="col-md-9">
+							    <input type="text" name="fname" id="fname" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+							    <div class="form-group">
+							  <label class="col-md-3">Last Name:</label>
+							  <div class="col-md-9">
+							    <input type="text" name="lnamee" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+							    <div class="form-group">
+							  <label class="col-md-3">E-Mail Address:</label>
+							  <div class="col-md-9">
+							    <input type="email" name="email1" id="emailad" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+							    <div class="form-group">
+							  <label class="col-md-3">Password:</label>
+							  <div class="col-md-9">
+							    <input type="password" id="passw" name="pass" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+							    <div class="form-group">
+							  <label class="col-md-3">Confirm-Password:</label>
+							  <div class="col-md-9">
+							    <input type="password" id="cpassw" name="cpass" class="form-control" placeholder="" value="">
+							  </div>
+							</div>
+								<div class="btn-acc">
+									<input type="submit" name="signup" id="createaccount" class="btn btn-account" value="Create Account">
+							</div>
+						  </div>
+                   
+                           </div>
+                       </form>
+                       <span id="result"></span>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+</div>
+</div>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+  	function validateform() {
+  var fname = document.forms["registration"]["fname"].value;
+  var email = document.forms["registration"]["emailad"].value;
+  var password = document.forms["registration"]["passw"].value;
+  var confirmpass = document.forms["registration"]["cpassw"].value;
+  var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+  if (fname == "") {
+    alert("Name must be filled out");
+    return false;
+  }
+
+if(email == ""){
+  		alert("please enter a email");
+  		return false;
+  }
+if (!(testEmail.test(email))){
+	alert("please enter a vaild email");
+  		return false;
+}
+if(!(password == confirmpass)) {
+
+	alert("password did't match");
+	return false;
+}
+ 
+ 
+  return true;
+    
+}
+
+</script>
+
+</body>
+</html>
+<?php if(isset($_POST['signup'])){
+        $firstname=$_POST['fnamee'];
+        $lastname=$_POST['lnamee'];
+        $email=$_POST['email1'];
+        $paswrd=$_POST['pass'];
+       echo "hello";
+      $insert = "INSERT into regisrtion_table (first_name,last_name,email,password) VALUES ('".$firstname."','".$lastname."','".$email."','".$paswrd."')";
+		$query = mysqli_query($conn,$insert);
+		print_r($insert);
+    
+
+}
+?>
